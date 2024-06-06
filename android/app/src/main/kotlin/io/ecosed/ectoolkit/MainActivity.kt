@@ -1,6 +1,10 @@
 package io.ecosed.ectoolkit
 
 import com.idlefish.flutterboost.containers.FlutterBoostActivity
-import io.flutter.embedding.android.FlutterActivity
 
-class MainActivity: FlutterBoostActivity()
+class MainActivity : FlutterBoostActivity() {
+
+    override fun getUrl(): String {
+        return "/"
+    }
+}
