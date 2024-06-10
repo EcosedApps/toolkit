@@ -11,6 +11,7 @@ final class ECToolkitRunner {
   Future<void> call() async => _run();
 
   Future<void> _run() async {
+    CustomFlutterBinding();
     await runEcosedApp(
       app: (context) => _application(),
       plugins: _plugins(),
@@ -18,10 +19,7 @@ final class ECToolkitRunner {
     );
   }
 
-  Future<void> _runner(Widget app) async {
-    CustomFlutterBinding();
-    runApp(app);
-  }
+  Future<void> _runner(Widget app) async => runApp(app);
 
   Widget _application() {
     return const MyApp();
