@@ -6,7 +6,6 @@ void main() {
   CustomFlutterBinding();
   runEcosedApp(
     app: (context) => const MyApp(),
-    appName: 'appName',
     plugins: const <EcosedPlugin>[],
     runner: (app) async => runApp(app),
   );
