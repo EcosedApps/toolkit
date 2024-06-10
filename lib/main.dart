@@ -2,13 +2,65 @@ import 'package:flutter/material.dart';
 import 'package:flutter_boost/flutter_boost.dart';
 import 'package:flutter_ecosed/flutter_ecosed.dart';
 
-void main() {
-  CustomFlutterBinding();
-  runEcosedApp(
-    app: (context) => const MyApp(),
-    plugins: const <EcosedPlugin>[],
-    runner: (app) async => runApp(app),
-  );
+Future<void> main() async => const ECToolkitRunner()();
+
+/// 工具箱运行器
+final class ECToolkitRunner {
+  const ECToolkitRunner();
+  // 调用
+  Future<void> call() async => _run();
+
+  Future<void> _run() async {
+    await runEcosedApp(
+      app: (context) => _application(),
+      plugins: _plugins(),
+      runner: (app) async => _runner(app),
+    );
+  }
+
+  Future<void> _runner(Widget app) async {
+    CustomFlutterBinding();
+    runApp(app);
+  }
+
+  Widget _application() {
+    return const MyApp();
+  }
+
+  List<EcosedPlugin> _plugins() {
+    return const [MyPlugin()];
+  }
+}
+
+class MyPlugin extends StatelessWidget implements EcosedPlugin {
+  const MyPlugin({super.key});
+
+  @override
+  String pluginAuthor() => 'wyq0918dev';
+
+  @override
+  String pluginChannel() => 'my_plugin';
+
+  @override
+  String pluginDescription() => 'my plugin';
+
+  @override
+  String pluginName() => 'MyPlugin';
+
+  @override
+  Widget pluginWidget(BuildContext context) => this;
+
+  @override
+  Future<dynamic> onMethodCall(String method) async {
+    return await null;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text('MyPlugin'),
+    );
+  }
 }
 
 final class CustomFlutterBinding extends WidgetsFlutterBinding
@@ -21,9 +73,7 @@ class MyApp extends StatelessWidget {
     '/': (settings, uniqueId) {
       return MaterialPageRoute(
         settings: settings,
-        builder: (context) {
-          return context.getManagerWidget();
-        },
+        builder: (context) => context.getManagerWidget(),
       );
     },
   };
